@@ -18,34 +18,10 @@
         equal(typeof cliArgument.argumentValue, 'undefined', "should set argumentValue to undefined");
     });
 
-    test("Instantiation with flag", function () {
-        var cliArgument = giant.CliArgument.create('foo');
-
-        equal(cliArgument.argumentName, 'foo', "should set argumentName");
-        equal(cliArgument.argumentValue, true, "should set argumentValue to true");
-    });
-
-    test("Instantiation with option", function () {
-        var cliArgument = giant.CliArgument.create('--foo=bar');
-
-        equal(cliArgument.argumentName, 'foo', "should set argumentName");
-        equal(cliArgument.argumentValue, 'bar', "should set argumentValue");
-    });
-
-    test("Conversion from flag string", function () {
+    test("Conversion from string", function () {
         var cliArgument = 'foo'.toCliArgument();
 
         ok(cliArgument.isA(giant.CliArgument), "should return CliArgument instance");
-        equal(cliArgument.argumentName, 'foo', "should set argumentName");
-        equal(cliArgument.argumentValue, true, "should set argumentValue to true");
-    });
-
-    test("Conversion from option string", function () {
-        var cliArgument = '--foo=bar'.toCliArgument();
-
-        ok(cliArgument.isA(giant.CliArgument), "should return CliArgument instance");
-        equal(cliArgument.argumentName, 'foo', "should set argumentName");
-        equal(cliArgument.argumentValue, 'bar', "should set argumentValue");
     });
 
     test("Argument name setter", function () {
@@ -60,11 +36,5 @@
 
         strictEqual(cliArgument.setArgumentValue('bar'), cliArgument, "should be chainable");
         equal(cliArgument.argumentValue, 'bar', "should set argumentValue property");
-    });
-
-    test("Serialization", function () {
-        equal('foo'.toCliArgument().toString(), 'foo', "should return argument name for flag");
-        equal('--foo=bar'.toCliArgument().toString(), '--foo=bar',
-            "should return option assignment for option");
     });
 }());

@@ -19,31 +19,6 @@ troop.postpone(giant, 'CliArgument', function () {
      * @extends troop.Base
      */
     giant.CliArgument = self
-        .addConstants(/** @lends CliArgument */{
-            /**
-             * Defines the pattern an option must adhere to.
-             * @constant
-             */
-            RE_OPTION: /--([^=]+)=(.*)/
-        })
-        .addPrivateMethods(/** @lends CliArgument# */{
-            /**
-             * @param {string} argumentStr
-             * @returns {Array}
-             * @private
-             */
-            _extractKeyValuePair: function (argumentStr) {
-                var option = this.RE_OPTION.exec(argumentStr);
-
-                if (option && option.length === 3) {
-                    // argument is option
-                    return option.slice(1);
-                } else {
-                    // argument is switch
-                    return [argumentStr, true];
-                }
-            }
-        })
         .addMethods(/** @lends giant.CliArgument# */{
             /**
              * @param {string} [argumentStr]
@@ -52,19 +27,17 @@ troop.postpone(giant, 'CliArgument', function () {
             init: function (argumentStr) {
                 dessert.isStringOptional(argumentStr, "Invalid CLI argument string");
 
-                var keyValuePair = argumentStr && this._extractKeyValuePair(argumentStr);
-
                 /**
                  * Option name.
                  * @type {string}
                  */
-                this.argumentName = keyValuePair && keyValuePair[0];
+                this.argumentName = undefined;
 
                 /**
                  * Option value.
                  * @type {string}
                  */
-                this.argumentValue = keyValuePair && keyValuePair[1];
+                this.argumentValue = undefined;
             },
 
             /**
@@ -83,18 +56,6 @@ troop.postpone(giant, 'CliArgument', function () {
             setArgumentValue: function (argumentValue) {
                 this.argumentValue = argumentValue;
                 return this;
-            },
-
-            /**
-             * Converts CLI option back to string.
-             * @returns {string}
-             */
-            toString: function () {
-                return this.argumentValue === true ?
-                    // command or flag
-                    this.argumentName :
-                    // option
-                    ['--', this.argumentName, '=', this.argumentValue].join('');
             }
         });
 });
