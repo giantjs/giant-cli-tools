@@ -13,7 +13,6 @@ troop.postpone(giant, 'CliArguments', function () {
      */
 
     /**
-     * TODO: Rename to CliArgumentList
      * Implements CLI argument processing.
      * @class
      * @extends troop.Base
@@ -26,7 +25,6 @@ troop.postpone(giant, 'CliArguments', function () {
              * @private
              */
             _parseArguments: function (argv) {
-                var that = this;
                 return sntls.Collection.create(argv)
                     .createWithEachItem(giant.CliArgument)
                     .mapKeys(function (cliArgument) {
