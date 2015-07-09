@@ -13,12 +13,17 @@ troop.postpone(giant, 'CliArgument', function () {
      */
 
     /**
+     * Represents a single argument of a CLI application, which is
+     * either interpreted as a command / flag, or an option.
      * @class
      * @extends troop.Base
      */
     giant.CliArgument = self
         .addConstants(/** @lends CliArgument */{
-            /** @constant */
+            /**
+             * Defines the pattern an option must adhere to.
+             * @constant
+             */
             RE_OPTION: /--([^=]+)=(.*)/
         })
         .addPrivateMethods(/** @lends CliArgument# */{

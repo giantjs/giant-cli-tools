@@ -13,36 +13,24 @@ troop.postpone(giant, 'CliArguments', function () {
      */
 
     /**
+     * TODO: Rename to CliArgumentList
      * Implements CLI argument processing.
-     * TODO: Add commands & switches.
      * @class
      * @extends troop.Base
      */
     giant.CliArguments = self
-        .addConstants(/** @lends CliArguments */{
-            /** @constant */
-            RE_OPTION: /--([^=]+)=(.*)/
-        })
         .addPrivateMethods(/** @lends CliArguments# */{
             /**
              * @param {string[]} [argv]
              * @returns {sntls.Collection}
              * @private
              */
-            _extractOptions: function (argv) {
+            _parseArguments: function (argv) {
                 var that = this;
                 return sntls.Collection.create(argv)
-                    .filterBySelector(function (arg) {
-                        return that.RE_OPTION.test(arg);
-                    })
-                    .mapValues(function (option) {
-                        return that.RE_OPTION.exec(option).slice(1);
-                    })
-                    .mapKeys(function (optionKvp) {
-                        return optionKvp[0];
-                    })
-                    .mapValues(function (optionKvp) {
-                        return optionKvp[1];
+                    .createWithEachItem(giant.CliArgument)
+                    .mapKeys(function (cliArgument) {
+                        return cliArgument.argumentName;
                     });
             }
         })
@@ -55,58 +43,52 @@ troop.postpone(giant, 'CliArguments', function () {
                 dessert.isArrayOptional(argv, "Invalid CLI arguments");
 
                 /** @type {sntls.Collection} */
-                this.options = argv ?
-                    this._extractOptions(argv) :
+                this.cliArguments = argv ?
+                    this._parseArguments(argv) :
                     sntls.Collection.create();
             },
 
             /**
-             * @param {string} optionName
-             * @param {string|*} optionValue
-             * @returns {CliArguments}
+             * Adds a single argument to the list of arguments.
+             * @param {giant.CliArgument} cliArgument
+             * @returns {giant.CliArguments}
              */
-            setOption: function (optionName, optionValue) {
-                this.options.setItem(optionName, optionValue);
+            addArgument: function (cliArgument) {
+                this.cliArguments.setItem(cliArgument.argumentName, cliArgument);
                 return this;
             },
 
             /**
-             * @param {sntls.Collection} options
-             * @returns {CliArguments}
+             * Adds multiple arguments to the list of arguments.
+             * @param {sntls.Collection} cliArgumentCollection
+             * @returns {giant.CliArguments}
              */
-            addOptions: function (options) {
+            addArguments: function (cliArgumentCollection) {
                 // TODO: Use .mergeInto() as soon as available.
-                this.options = this.options.mergeWith(options);
+                this.cliArguments = this.cliArguments
+                    .mergeWith(cliArgumentCollection);
                 return this;
             },
 
             /**
-             * @param {string} optionName
-             * @returns {string}
+             * Retrieves the value of the specified argument.
+             * @param {string} argumentName
+             * @returns {string|boolean}
              */
-            getOption: function (optionName) {
-                return this.options.getItem(optionName);
+            getArgumentValue: function (argumentName) {
+                var cliArgument = this.cliArguments.getItem(argumentName);
+                return cliArgument && cliArgument.argumentValue;
             },
 
             /**
-             * Retrieves an array of options that may be passed to a CLI.
-             * TODO: Should use CliOption.toString() class.
-             * TODO: Should include commands & switches when done
-             * @returns {string[]}
-             */
-            getAsArguments: function () {
-                return this.options
-                    .mapValues(function (optionValue, optionKey) {
-                        return '--' + optionKey + '=' + optionValue;
-                    })
-                    .getSortedValues();
-            },
-
-            /**
+             * Serializes entire argument list.
              * @returns {string}
              */
             toString: function () {
-                return this.getAsArguments().join(' ');
+                return this.cliArguments
+                    .callOnEachItem('toString')
+                    .getSortedValues()
+                    .join(' ');
             }
         });
 });
