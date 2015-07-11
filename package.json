@@ -1,6 +1,6 @@
 {
     "name"           : "giant-cli-tools",
-    "version"        : "0.0.0",
+    "version"        : "0.0.3",
     "description"    : "Tools for building CLI applications",
     "keywords"       : [
         "cli", "command line",
