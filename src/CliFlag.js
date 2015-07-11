@@ -1,5 +1,5 @@
-/*global dessert, troop, sntls, giant */
-troop.postpone(giant, 'CliFlag', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'CliFlag', function () {
     "use strict";
 
     var base = giant.CliArgument,
@@ -39,7 +39,7 @@ troop.postpone(giant, 'CliFlag', function () {
         });
 });
 
-troop.amendPostponed(giant, 'CliArgument', function () {
+giant.amendPostponed(giant, 'CliArgument', function () {
     "use strict";
 
     giant.CliArgument

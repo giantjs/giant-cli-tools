@@ -1,8 +1,8 @@
-/*global giant, dessert, troop, sntls */
-troop.postpone(giant, 'CliArguments', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'CliArguments', function () {
     "use strict";
 
-    var base = troop.Base,
+    var base = giant.Base,
         self = base.extend();
 
     /**
@@ -15,17 +15,17 @@ troop.postpone(giant, 'CliArguments', function () {
     /**
      * Implements CLI argument processing.
      * @class
-     * @extends troop.Base
+     * @extends giant.Base
      */
     giant.CliArguments = self
         .addPrivateMethods(/** @lends CliArguments# */{
             /**
              * @param {string[]} [argv]
-             * @returns {sntls.Collection}
+             * @returns {giant.Collection}
              * @private
              */
             _parseArguments: function (argv) {
-                return sntls.Collection.create(argv)
+                return giant.Collection.create(argv)
                     .createWithEachItem(giant.CliArgument)
                     .mapKeys(function (cliArgument) {
                         return cliArgument.argumentName;
@@ -38,12 +38,12 @@ troop.postpone(giant, 'CliArguments', function () {
              * @ignore
              */
             init: function (argv) {
-                dessert.isArrayOptional(argv, "Invalid CLI arguments");
+                giant.isArrayOptional(argv, "Invalid CLI arguments");
 
-                /** @type {sntls.Collection} */
+                /** @type {giant.Collection} */
                 this.cliArguments = argv ?
                     this._parseArguments(argv) :
-                    sntls.Collection.create();
+                    giant.Collection.create();
             },
 
             /**
@@ -58,7 +58,7 @@ troop.postpone(giant, 'CliArguments', function () {
 
             /**
              * Adds multiple arguments to the list of arguments.
-             * @param {sntls.Collection} cliArgumentCollection
+             * @param {giant.Collection} cliArgumentCollection
              * @returns {giant.CliArguments}
              */
             addArguments: function (cliArgumentCollection) {
@@ -94,7 +94,7 @@ troop.postpone(giant, 'CliArguments', function () {
 (function () {
     "use strict";
 
-    troop.Properties.addProperties.call(
+    giant.Properties.addProperties.call(
         Array.prototype,
         /** @lends Array# */{
             /**

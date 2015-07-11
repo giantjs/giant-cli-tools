@@ -1,5 +1,5 @@
-/*global dessert, troop, sntls, giant */
-troop.postpone(giant, 'CliOption', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'CliOption', function () {
     "use strict";
 
     var base = giant.CliArgument,
@@ -34,7 +34,7 @@ troop.postpone(giant, 'CliOption', function () {
 
                 var keyValuePair = argumentStr && this.RE_OPTION.exec(argumentStr);
 
-                dessert.assert(keyValuePair, "Malformed option string");
+                giant.assert(keyValuePair, "Malformed option string");
 
                 this.argumentName = keyValuePair[1];
                 this.argumentValue = keyValuePair[2];
@@ -50,7 +50,7 @@ troop.postpone(giant, 'CliOption', function () {
         });
 });
 
-troop.amendPostponed(giant, 'CliArgument', function () {
+giant.amendPostponed(giant, 'CliArgument', function () {
     "use strict";
 
     giant.CliArgument

@@ -1,8 +1,8 @@
-/*global dessert, troop, sntls, giant */
-troop.postpone(giant, 'CliArgument', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'CliArgument', function () {
     "use strict";
 
-    var base = troop.Base,
+    var base = giant.Base,
         self = base.extend();
 
     /**
@@ -16,7 +16,7 @@ troop.postpone(giant, 'CliArgument', function () {
      * Represents a single argument of a CLI application, which is
      * either interpreted as a command / flag, or an option.
      * @class
-     * @extends troop.Base
+     * @extends giant.Base
      */
     giant.CliArgument = self
         .addMethods(/** @lends giant.CliArgument# */{
@@ -25,7 +25,7 @@ troop.postpone(giant, 'CliArgument', function () {
              * @ignore
              */
             init: function (argumentStr) {
-                dessert.isStringOptional(argumentStr, "Invalid CLI argument string");
+                giant.isStringOptional(argumentStr, "Invalid CLI argument string");
 
                 /**
                  * Option name.
@@ -63,7 +63,7 @@ troop.postpone(giant, 'CliArgument', function () {
 (function () {
     "use strict";
 
-    troop.Properties.addProperties.call(
+    giant.Properties.addProperties.call(
         String.prototype,
         /** @lends String# */{
             /**

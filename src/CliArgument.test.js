@@ -1,4 +1,4 @@
-/*global dessert, troop, sntls, giant */
+/*global giant, giant, giant, giant */
 /*global module, test, asyncTest, start, expect, ok, equal, notEqual, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises */
 (function () {
     "use strict";
