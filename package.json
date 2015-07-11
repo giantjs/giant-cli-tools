@@ -1,7 +1,7 @@
 {
     "name"           : "giant-cli-tools",
     "version"        : "0.0.3",
-    "description"    : "Tools for building CLI applications",
+    "description"    : "Command line tools module for Giant",
     "keywords"       : [
         "cli", "command line",
         "argument", "processing"
