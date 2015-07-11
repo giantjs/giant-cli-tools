@@ -1,6 +1,4 @@
-CLI Tools for Giant
-===================
+Command line tools module for Giant
+===================================
 
-Collection of classes for building *command line applications*.
-
-- Argument processing (options and flags)
+[Web](http://giantjs.org) [Npm](https://www.npmjs.com/~giantjs) [GitHub](https://github.com/giantjs)
