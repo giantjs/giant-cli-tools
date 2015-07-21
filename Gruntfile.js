@@ -5,6 +5,8 @@ module.exports = function (grunt) {
     var params = {
         files: [
             'src/namespace.js',
+            'src/CliExpectedArgument.js',
+            'src/CliExpectedArguments.js',
             'src/CliArgument.js',
             'src/CliOption.js',
             'src/CliFlag.js',
