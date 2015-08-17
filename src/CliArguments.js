@@ -27,8 +27,8 @@ giant.postpone(giant, 'CliArguments', function () {
             _parseArguments: function (argv) {
                 return giant.Collection.create(argv)
                     .createWithEachItem(giant.CliArgument)
-                    .mapKeys(function (cliArgument) {
-                        return cliArgument.argumentName;
+                    .mapKeys(function (argument) {
+                        return argument.argumentName;
                     });
             }
         })
@@ -63,23 +63,26 @@ giant.postpone(giant, 'CliArguments', function () {
 
             /**
              * Adds a single argument to the list of arguments.
-             * @param {giant.CliArgument} cliArgument
+             * @param {giant.CliArgument} argument
              * @returns {giant.CliArguments}
              */
-            addArgument: function (cliArgument) {
-                this.argumentCollection.setItem(cliArgument.argumentName, cliArgument);
+            addArgument: function (argument) {
+                this.argumentCollection.setItem(argument.argumentName, argument);
                 return this;
             },
 
             /**
              * Adds multiple arguments to the list of arguments.
-             * @param {giant.Collection} cliArgumentCollection
+             * @param {giant.Collection} argumentCollection
              * @returns {giant.CliArguments}
              */
-            addArguments: function (cliArgumentCollection) {
+            addArguments: function (argumentCollection) {
                 // TODO: Use .mergeInto() as soon as available.
                 this.argumentCollection = this.argumentCollection
-                    .mergeWith(cliArgumentCollection);
+                    .mergeWith(argumentCollection
+                        .mapKeys(function (argument) {
+                            return argument.argumentName;
+                        }));
                 return this;
             },
 

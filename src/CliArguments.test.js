@@ -47,6 +47,29 @@
             "should set expectedArguments property");
     });
 
+    test("Argument addition", function () {
+        var args = ['foo', 'bar', '--baz=qux'].toCliArguments(),
+            arg = 'foo'.toCliArgument();
+
+        strictEqual(args.addArgument(arg), args, "should be chainable");
+        strictEqual(args.argumentCollection.getItem('foo'), arg,
+            "should set argument in collection");
+    });
+
+    test("Multiple argument addition", function () {
+        var args = [].toCliArguments(),
+            argCollection = [
+                'foo'.toCliArgument(),
+                'bar'.toCliArgument()
+            ].toCollection();
+
+        strictEqual(args.addArguments(argCollection), args, "should be chainable");
+        deepEqual(args.argumentCollection.items, {
+            foo: 'foo'.toCliArgument(),
+            bar: 'bar'.toCliArgument()
+        }, "should set arguments in collection");
+    });
+
     test("Argument value getter", function () {
         var args = ['foo', '--bar=', '--baz=', '--hello=world'].toCliArguments()
             .setExpectedArguments(giant.CliExpectedArguments.create()
