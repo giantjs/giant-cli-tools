@@ -41,9 +41,24 @@ giant.postpone(giant, 'CliArguments', function () {
                 giant.isArrayOptional(argv, "Invalid CLI arguments");
 
                 /** @type {giant.Collection} */
-                this.cliArguments = argv ?
+                this.argumentCollection = argv ?
                     this._parseArguments(argv) :
                     giant.Collection.create();
+
+                /**
+                 * Expected arguments. Contains default values.
+                 * @type {giant.CliExpectedArguments}
+                 */
+                this.expectedArguments = undefined;
+            },
+
+            /**
+             * @param {giant.CliExpectedArguments} expectedArguments
+             * @returns {giant.CliArguments}
+             */
+            setExpectedArguments: function (expectedArguments) {
+                this.expectedArguments = expectedArguments;
+                return this;
             },
 
             /**
@@ -52,7 +67,7 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {giant.CliArguments}
              */
             addArgument: function (cliArgument) {
-                this.cliArguments.setItem(cliArgument.argumentName, cliArgument);
+                this.argumentCollection.setItem(cliArgument.argumentName, cliArgument);
                 return this;
             },
 
@@ -63,7 +78,7 @@ giant.postpone(giant, 'CliArguments', function () {
              */
             addArguments: function (cliArgumentCollection) {
                 // TODO: Use .mergeInto() as soon as available.
-                this.cliArguments = this.cliArguments
+                this.argumentCollection = this.argumentCollection
                     .mergeWith(cliArgumentCollection);
                 return this;
             },
@@ -74,8 +89,12 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {string|boolean}
              */
             getArgumentValue: function (argumentName) {
-                var cliArgument = this.cliArguments.getItem(argumentName);
-                return cliArgument && cliArgument.argumentValue;
+                var expectedArguments = this.expectedArguments,
+                    expectedArgument = expectedArguments && expectedArguments.getItem(argumentName),
+                    argument = this.argumentCollection.getItem(argumentName);
+
+                return argument && argument.argumentValue ||
+                    expectedArgument && expectedArgument.defaultValue;
             },
 
             /**
@@ -83,7 +102,7 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {string}
              */
             toString: function () {
-                return this.cliArguments
+                return this.argumentCollection
                     .callOnEachItem('toString')
                     .getSortedValues()
                     .join(' ');
