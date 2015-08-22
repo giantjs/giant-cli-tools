@@ -12,6 +12,7 @@ module.exports = function (grunt) {
             'src/CliFlag.js',
             'src/CliArguments.js',
             'src/Argv.js',
+            'src/ScriptRunner.js',
             'src/exports.js'
         ],
 
