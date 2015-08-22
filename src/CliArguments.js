@@ -6,10 +6,10 @@ giant.postpone(giant, 'CliArguments', function () {
         self = base.extend();
 
     /**
-     * @name CliArguments.create
+     * @name giant.CliArguments.create
      * @function
      * @param {string[]} [argv]
-     * @returns {CliArguments}
+     * @returns {giant.CliArguments}
      */
 
     /**
@@ -18,7 +18,7 @@ giant.postpone(giant, 'CliArguments', function () {
      * @extends giant.Base
      */
     giant.CliArguments = self
-        .addPrivateMethods(/** @lends CliArguments# */{
+        .addPrivateMethods(/** @lends giant.CliArguments# */{
             /**
              * @param {string[]} [argv]
              * @returns {giant.Collection}
@@ -32,17 +32,17 @@ giant.postpone(giant, 'CliArguments', function () {
                     });
             }
         })
-        .addMethods(/** @lends CliArguments# */{
+        .addMethods(/** @lends giant.CliArguments# */{
             /**
-             * @param {string[]} argv
+             * @param {string[]} args
              * @ignore
              */
-            init: function (argv) {
-                giant.isArrayOptional(argv, "Invalid CLI arguments");
+            init: function (args) {
+                giant.isArrayOptional(args, "Invalid CLI arguments");
 
                 /** @type {giant.Collection} */
-                this.argumentCollection = argv ?
-                    this._parseArguments(argv) :
+                this.argumentCollection = args ?
+                    this._parseArguments(args) :
                     giant.Collection.create();
 
                 /**
