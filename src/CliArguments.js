@@ -20,12 +20,12 @@ giant.postpone(giant, 'CliArguments', function () {
     giant.CliArguments = self
         .addPrivateMethods(/** @lends giant.CliArguments# */{
             /**
-             * @param {string[]} [argv]
+             * @param {string[]} [asArray]
              * @returns {giant.Collection}
              * @private
              */
-            _parseArguments: function (argv) {
-                return giant.Collection.create(argv)
+            _parseArguments: function (asArray) {
+                return giant.Collection.create(asArray)
                     .createWithEachItem(giant.CliArgument)
                     .mapKeys(function (argument) {
                         return argument.argumentName;
@@ -34,15 +34,15 @@ giant.postpone(giant, 'CliArguments', function () {
         })
         .addMethods(/** @lends giant.CliArguments# */{
             /**
-             * @param {string[]} args
+             * @param {string[]} asArray
              * @ignore
              */
-            init: function (args) {
-                giant.isArrayOptional(args, "Invalid CLI arguments");
+            init: function (asArray) {
+                giant.isArrayOptional(asArray, "Invalid CLI arguments");
 
                 /** @type {giant.Collection} */
-                this.argumentCollection = args ?
-                    this._parseArguments(args) :
+                this.argumentCollection = asArray ?
+                    this._parseArguments(asArray) :
                     giant.Collection.create();
 
                 /**
@@ -106,6 +106,16 @@ giant.postpone(giant, 'CliArguments', function () {
 
                 return argument && argument.argumentValue ||
                     expectedArgument && expectedArgument.defaultValue;
+            },
+
+            /**
+             * Returns an array of each argument serialized.
+             * @returns {string[]}
+             */
+            getAsArray: function () {
+                return this.argumentCollection
+                    .callOnEachItem('toString')
+                    .getSortedValues();
             },
 
             /**

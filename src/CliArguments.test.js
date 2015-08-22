@@ -92,6 +92,13 @@
             "should return undefined where no value nor default is given");
     });
 
+    test("Array getter", function () {
+        var args = ['--foo=bar', '--baz=qux', 'hello'].toCliArguments();
+
+        equal(args.getAsArray(), ['--baz=qux', '--foo=bar', 'hello'],
+            "should return arguments array");
+    });
+
     test("Serialization", function () {
         var args = ['--foo=bar', '--baz=qux', 'hello'].toCliArguments();
 
