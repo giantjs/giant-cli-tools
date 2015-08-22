@@ -36,12 +36,12 @@ giant.postpone(giant, 'ScriptRunner', function () {
             /**
              * @param {string} scriptPath
              * @param {CliArguments} cliArguments
-             * @param {object} [options]
+             * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScript: function (scriptPath, cliArguments, options) {
+            runScript: function (scriptPath, cliArguments, processOptions) {
                 var args = [scriptPath].concat(cliArguments.toString()),
-                    scriptProcess = this._spawnProxy('node', args, options),
+                    scriptProcess = this._spawnProxy('node', args, processOptions),
                     deferred = Q.defer();
 
                 this._processOnProxy(scriptProcess, 'error', function () {
@@ -59,16 +59,17 @@ giant.postpone(giant, 'ScriptRunner', function () {
              * Runs the script with different argument variations in a serial fashion.
              * @param {string} scriptPath
              * @param {CliArguments[]} cliArgumentVariations
+             * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScriptVariations: function (scriptPath, cliArgumentVariations) {
+            runScriptVariations: function (scriptPath, cliArgumentVariations, processOptions) {
                 var that = this,
                     deferred = Q.defer(),
                     i = 0;
 
                 (function next() {
                     var cliArguments = cliArgumentVariations[i];
-                    that.runScript(scriptPath, cliArguments)
+                    that.runScript(scriptPath, cliArguments, processOptions)
                         .finally(function () {
                             deferred.notify(cliArguments);
                         })
