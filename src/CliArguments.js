@@ -87,6 +87,14 @@ giant.postpone(giant, 'CliArguments', function () {
             },
 
             /**
+             * Returns the number of arguments in the collection.
+             * @returns {number}
+             */
+            getArgumentCount: function () {
+                return this.argumentCollection.getKeyCount();
+            },
+
+            /**
              * Retrieves the value of the specified argument.
              * @param {string} argumentName
              * @returns {string|boolean}

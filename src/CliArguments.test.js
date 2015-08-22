@@ -70,6 +70,13 @@
         }, "should set arguments in collection");
     });
 
+    test("Argument count getter", function () {
+        equal(['foo', 'bar', '--baz=qux'].toCliArguments().getArgumentCount(), 3,
+            "should return number of arguments");
+        equal(giant.CliArguments.create().getArgumentCount(), 0,
+            "should return zero for empty argument list");
+    });
+
     test("Argument value getter", function () {
         var args = ['foo', '--bar=', '--baz=', '--hello=world'].toCliArguments()
             .setExpectedArguments(giant.CliExpectedArguments.create()
