@@ -10,6 +10,12 @@ if (typeof require === 'function') {
 }
 
 /**
+ * @function
+ * @see http://documentup.com/kriskowal/q/
+ */
+var Q = Q || require('q', 'Q');
+
+/**
  * Native string class.
  * @name String
  * @class
