@@ -12,62 +12,82 @@
 
         var app = giant.CliApplication.create('foo.js');
 
-        equal(app.scriptPath, 'foo.js', "should set scriptPath property");
+        equal(app.applicationPath, 'foo.js', "should set applicationPath property");
+        equal(app.stdout, undefined, "should add stdout property");
+        equal(app.stderr, undefined, "should add stderr property");
+        equal(app.lastError, undefined, "should add lastError property");
     });
 
     test("Conversion from string", function () {
         var app = 'foo.js'.toCliApplication();
 
         ok(app.isA(giant.CliApplication), "should return CliApplication instance");
-        equal(app.scriptPath, 'foo.js', "should set scriptPath property");
+        equal(app.applicationPath, 'foo.js', "should set applicationPath property");
     });
 
-    test("CliApplication runner", function () {
-         expect(4);
+    asyncTest("CliApplication runner", function () {
+        expect(8);
 
         var app = 'foo.js'.toCliApplication(),
-            result = {};
+            process = {},
+            processOptions = {},
+            exit;
 
-        giant.CliRunner.addMocks({
-            runCli: function (scriptPath, cliArguments, processOptions) {
-                equal(scriptPath, app.scriptPath, "should pass app path");
-                deepEqual(cliArguments.argumentCollection.items, {
-                    bar: 'bar'.toCliArgument(),
-                    baz: 'baz'.toCliArgument()
-                }, "should pass CLI arguments");
-                deepEqual(processOptions, {}, "should pass process options");
-                return result;
+        app.addMocks({
+            _spawnProxy: function (command, args, options) {
+                equal(command, 'foo.js', "should pass node as command");
+                deepEqual(args, ['--hello=world'], "should pass CLI arguments");
+                strictEqual(options, processOptions, "should pass options");
+                return process;
+            },
+
+            _processOnProxy: function (_process, eventName, handler) {
+                // will be hit 2x
+                strictEqual(_process, process, "should subscribe on spawned process");
+                if (eventName === 'exit') {
+                    exit = handler;
+                }
             }
         });
 
-        strictEqual(app.runCli(['bar', 'baz'].toCliArguments(), {}), result,
-            "should return whatever CliRunner returned");
+        app.runCli(['--hello=world'].toCliArguments(), processOptions)
+            .then(function () {
+                equal(app.stdout, 'O', "should set stdout property");
+                equal(app.stderr, 'E', "should set stderr property");
+                equal(app.lastError, 'err', "should set lastError property");
+                start();
+            });
 
-        giant.CliRunner.removeMocks();
+        exit('err', 'O', 'E');
     });
 
-    test("CliApplication variations runner", function () {
-         expect(5);
+    asyncTest("CliApplication variations runner", function () {
+        expect(1);
 
         var app = 'foo.js'.toCliApplication(),
-            result = {};
+            cliArgVariations = [
+                ['--foo=bar'].toCliArguments(),
+                ['--hello=world'].toCliArguments()
+            ],
+            runScriptParams = [];
 
-        giant.CliRunner.addMocks({
-            runCliVariants: function (scriptPath, cliArgumentVariations, processOptions) {
-                equal(scriptPath, app.scriptPath, "should pass app path");
-                equal(cliArgumentVariations.length, 1);
-                deepEqual(cliArgumentVariations[0].argumentCollection.items, {
-                    bar: 'bar'.toCliArgument(),
-                    baz: 'baz'.toCliArgument()
-                }, "should pass CLI arguments");
-                deepEqual(processOptions, {}, "should pass process options");
-                return result;
+        app.addMocks({
+            runCli: function (cliArguments) {
+                runScriptParams.push(cliArguments.toString());
+                var deferred = Q.defer();
+                deferred.resolve();
+                return deferred.promise;
             }
         });
 
-        strictEqual(app.runCliVariants([['bar', 'baz'].toCliArguments()], {}), result,
-            "should return whatever CliRunner returned");
+        app.runCliVariants(cliArgVariations)
+            .then(function () {
+                deepEqual(runScriptParams, [
+                    '--foo=bar',
+                    '--hello=world'
+                ], "should run scripts for all argument variations");
 
-        giant.CliRunner.removeMocks();
+                start();
+            });
     });
 }());

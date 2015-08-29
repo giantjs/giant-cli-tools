@@ -125,7 +125,7 @@ giant.postpone(giant, 'CliArguments', function () {
             toString: function () {
                 return this.argumentCollection
                     .callOnEachItem('toString')
-                    .getSortedValues()
+                    .getValues()
                     .join(' ');
             }
         });

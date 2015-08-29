@@ -103,6 +103,6 @@
         var args = ['--foo=bar', '--baz=qux', 'hello'].toCliArguments();
 
         clearInterval(args.toString());
-        equal(args.toString(), '--baz=qux --foo=bar hello', "should re-assemble options");
+        equal(args.toString(), '--foo=bar --baz=qux hello', "should re-assemble options");
     });
 }());
