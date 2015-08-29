@@ -1,35 +1,35 @@
 /*global giant */
-giant.postpone(giant, 'Script', function () {
+giant.postpone(giant, 'CliApplication', function () {
     "use strict";
 
     var base = giant.Base,
         self = base.extend();
 
     /**
-     * @name giant.Script.create
+     * @name giant.CliApplication.create
      * @function
      * @param {giant.FilePath} scriptPath
-     * @returns {giant.Script}
+     * @returns {giant.CliApplication}
      */
 
     /**
      * @class
      * @extends giant.Base
      */
-    giant.Script = self
-        .addMethods(/** @lends giant.Script# */{
+    giant.CliApplication = self
+        .addMethods(/** @lends giant.CliApplication# */{
             /**
-             * @param {string} scriptPath
+             * @param {string} applicationPath
              * @ignore
              */
-            init: function (scriptPath) {
-                giant.isString(scriptPath, "Invalid script path");
+            init: function (applicationPath) {
+                giant.isString(applicationPath, "Invalid application path");
 
                 /**
-                 * Path where the script is located.
+                 * Path where the application is located.
                  * @type {string}
                  */
-                this.scriptPath = scriptPath;
+                this.scriptPath = applicationPath;
             },
 
             /**
@@ -37,8 +37,8 @@ giant.postpone(giant, 'Script', function () {
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScript: function (cliArguments, processOptions) {
-                return giant.ScriptRunner.runScript(
+            runCli: function (cliArguments, processOptions) {
+                return giant.CliRunner.runCli(
                     this.scriptPath,
                     cliArguments,
                     processOptions);
@@ -49,8 +49,8 @@ giant.postpone(giant, 'Script', function () {
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScriptVariations: function (cliArgumentVariations, processOptions) {
-                return giant.ScriptRunner.runScriptVariations(
+            runCliVariants: function (cliArgumentVariations, processOptions) {
+                return giant.CliRunner.runCliVariants(
                     this.scriptPath,
                     cliArgumentVariations,
                     processOptions);
@@ -63,10 +63,10 @@ giant.postpone(giant, 'Script', function () {
 
     giant.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
-         * @returns {giant.Script}
+         * @returns {giant.CliApplication}
          */
-        toScript: function () {
-            return giant.Script.create(this.valueOf());
+        toCliApplication: function () {
+            return giant.CliApplication.create(this.valueOf());
         }
     });
 }());

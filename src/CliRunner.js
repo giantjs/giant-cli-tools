@@ -1,14 +1,14 @@
 /*global giant, Q */
 /*jshint node:true */
-giant.postpone(giant, 'ScriptRunner', function () {
+giant.postpone(giant, 'CliRunner', function () {
     "use strict";
 
     /**
      * @class
      * @extends giant.Base
      */
-    giant.ScriptRunner = giant.Base.extend()
-        .addPrivateMethods(/** @lends ScriptRunner */{
+    giant.CliRunner = giant.Base.extend()
+        .addPrivateMethods(/** @lends CliRunner */{
             /**
              * @param {string} command
              * @param {string[]} args
@@ -32,15 +32,15 @@ giant.postpone(giant, 'ScriptRunner', function () {
                 return process.on(eventName, handler);
             }
         })
-        .addMethods(/** @lends ScriptRunner */{
+        .addMethods(/** @lends CliRunner */{
             /**
-             * @param {string} scriptPath
+             * @param {string} applicationPath
              * @param {CliArguments} cliArguments
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScript: function (scriptPath, cliArguments, processOptions) {
-                var args = [scriptPath].concat(cliArguments.toString()),
+            runCli: function (applicationPath, cliArguments, processOptions) {
+                var args = [applicationPath].concat(cliArguments.toString()),
                     scriptProcess = this._spawnProxy('node', args, processOptions),
                     deferred = Q.defer();
 
@@ -57,19 +57,19 @@ giant.postpone(giant, 'ScriptRunner', function () {
 
             /**
              * Runs the script with different argument variations in a serial fashion.
-             * @param {string} scriptPath
+             * @param {string} applicationPath
              * @param {CliArguments[]} cliArgumentVariations
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
-            runScriptVariations: function (scriptPath, cliArgumentVariations, processOptions) {
+            runCliVariants: function (applicationPath, cliArgumentVariations, processOptions) {
                 var that = this,
                     deferred = Q.defer(),
                     i = 0;
 
                 (function next() {
                     var cliArguments = cliArgumentVariations[i];
-                    that.runScript(scriptPath, cliArguments, processOptions)
+                    that.runCli(applicationPath, cliArguments, processOptions)
                         .finally(function () {
                             deferred.notify(cliArguments);
                         })

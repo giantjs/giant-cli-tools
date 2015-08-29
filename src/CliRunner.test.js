@@ -3,19 +3,19 @@
 (function () {
     "use strict";
 
-    module("ScriptRunner");
+    module("CliRunner");
 
-    asyncTest("Running script", function () {
+    asyncTest("Running app", function () {
         expect(6);
 
         var process = {},
             processOptions = {},
             exit;
 
-        giant.ScriptRunner.addMocks({
+        giant.CliRunner.addMocks({
             _spawnProxy: function (command, args, options) {
                 equal(command, 'node', "should pass node as command");
-                deepEqual(args, ['foo.js', '--hello=world'], "should pass script arguments");
+                deepEqual(args, ['foo.js', '--hello=world'], "should pass CLI arguments");
                 strictEqual(options, processOptions, "should pass options");
                 return process;
             },
@@ -29,11 +29,11 @@
             }
         });
 
-        giant.ScriptRunner.runScript('foo.js', ['--hello=world'].toCliArguments(), processOptions)
+        giant.CliRunner.runCli('foo.js', ['--hello=world'].toCliArguments(), processOptions)
             .finally(function () {
                 ok(true, "should return promise");
 
-                giant.ScriptRunner.removeMocks();
+                giant.CliRunner.removeMocks();
 
                 start();
             });
@@ -41,7 +41,7 @@
         exit();
     });
 
-    asyncTest("Running script with a set of arguments", function () {
+    asyncTest("Running app with a set of arguments", function () {
         expect(2);
 
         var cliArgVariations = [
@@ -50,8 +50,8 @@
             ],
             runScriptParams = [];
 
-        giant.ScriptRunner.addMocks({
-            runScript: function (scriptPath, cliArguments) {
+        giant.CliRunner.addMocks({
+            runCli: function (scriptPath, cliArguments) {
                 runScriptParams.push([scriptPath, cliArguments.toString()]);
                 var deferred = Q.defer();
                 deferred.resolve();
@@ -59,7 +59,7 @@
             }
         });
 
-        giant.ScriptRunner.runScriptVariations('baz.js', cliArgVariations)
+        giant.CliRunner.runCliVariants('baz.js', cliArgVariations)
             .finally(function () {
                 ok(true, "should return promise");
 
@@ -68,7 +68,7 @@
                     ['baz.js', '--hello=world']
                 ], "should run scripts for all argument variations");
 
-                giant.ScriptRunner.removeMocks();
+                giant.CliRunner.removeMocks();
 
                 start();
             });
