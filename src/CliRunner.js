@@ -70,17 +70,14 @@ giant.postpone(giant, 'CliRunner', function () {
                 (function next() {
                     var cliArguments = cliArgumentVariations[i];
                     that.runCli(applicationPath, cliArguments, processOptions)
-                        .finally(function () {
-                            deferred.notify(cliArguments);
-                        })
                         .then(function () {
                             if (++i < cliArgumentVariations.length) {
                                 next();
+                                deferred.notify(i, cliArguments);
                             } else {
                                 deferred.resolve();
                             }
-                        })
-                        .catch(function () {
+                        }, function () {
                             deferred.reject();
                         });
                 }());
