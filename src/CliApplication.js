@@ -8,7 +8,7 @@ giant.postpone(giant, 'CliApplication', function () {
     /**
      * @name giant.CliApplication.create
      * @function
-     * @param {giant.FilePath} scriptPath
+     * @param {string} scriptPath
      * @returns {giant.CliApplication}
      */
 
