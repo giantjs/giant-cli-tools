@@ -86,27 +86,27 @@ giant.postpone(giant, 'CliArguments', function () {
             },
 
             /**
-             * Adds a single argument to the list of arguments.
+             * Appends a single argument to the list of arguments.
              * @param {giant.CliArgument} cliArgument
              * @returns {giant.CliArguments}
              */
-            addArgument: function (cliArgument) {
+            appendArgument: function (cliArgument) {
                 this.argumentChain.pushValue(cliArgument);
                 this.argumentLookup.setItem(cliArgument.argumentName, cliArgument);
                 return this;
             },
 
             /**
-             * Adds multiple arguments to the list of arguments.
+             * Appends multiple arguments to the list of arguments.
              * @param {giant.CliArguments} cliArguments
              * @returns {giant.CliArguments}
              */
-            addArguments: function (cliArguments) {
+            appendArguments: function (cliArguments) {
                 var that = this;
 
                 cliArguments.argumentChain
                     .forEachLink(function (/**giant.ValueLink*/link) {
-                        that.addArgument(link.value);
+                        that.appendArgument(link.value);
                     });
 
                 return this;

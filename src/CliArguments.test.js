@@ -45,7 +45,7 @@
         var args = ['foo', 'bar', '--baz=qux'].toCliArguments(),
             arg = 'foo'.toCliArgument();
 
-        strictEqual(args.addArgument(arg), args, "should be chainable");
+        strictEqual(args.appendArgument(arg), args, "should be chainable");
         strictEqual(args.argumentLookup.getItem('foo'), arg,
             "should set argument in collection");
         strictEqual(args.argumentChain.lastLink.previousLink.value, arg,
@@ -56,7 +56,7 @@
         var args = ['foo'].toCliArguments(),
             remoteArgs = ['bar', 'baz'].toCliArguments();
 
-        strictEqual(args.addArguments(remoteArgs), args, "should be chainable");
+        strictEqual(args.appendArguments(remoteArgs), args, "should be chainable");
         deepEqual(args.argumentLookup.items, {
             foo: 'foo'.toCliArgument(),
             bar: 'bar'.toCliArgument(),
