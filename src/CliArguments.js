@@ -87,33 +87,27 @@ giant.postpone(giant, 'CliArguments', function () {
 
             /**
              * Adds a single argument to the list of arguments.
-             * @param {giant.CliArgument} argument
+             * @param {giant.CliArgument} cliArgument
              * @returns {giant.CliArguments}
              */
-            addArgument: function (argument) {
-                this.argumentChain.pushValue(argument);
-                this.argumentLookup.setItem(argument.argumentName, argument);
+            addArgument: function (cliArgument) {
+                this.argumentChain.pushValue(cliArgument);
+                this.argumentLookup.setItem(cliArgument.argumentName, cliArgument);
                 return this;
             },
 
             /**
              * Adds multiple arguments to the list of arguments.
-             * @param {giant.Collection} argumentCollection
+             * @param {giant.CliArguments} cliArguments
              * @returns {giant.CliArguments}
              */
-            addArguments: function (argumentCollection) {
-                var argumentChain = this.argumentChain;
+            addArguments: function (cliArguments) {
+                var that = this;
 
-                argumentCollection.forEachItem(function (/*giant.CliArgument*/argument) {
-                    argumentChain.pushValue(argument);
-                });
-
-                // TODO: Use .mergeInto() as soon as available.
-                this.argumentLookup = this.argumentLookup
-                    .mergeWith(argumentCollection
-                        .mapKeys(function (argument) {
-                            return argument.argumentName;
-                        }));
+                cliArguments.argumentChain
+                    .forEachLink(function (/**giant.ValueLink*/link) {
+                        that.addArgument(link.value);
+                    });
 
                 return this;
             },

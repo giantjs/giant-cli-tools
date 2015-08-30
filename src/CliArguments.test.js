@@ -52,21 +52,20 @@
             "should push argument to chain");
     });
 
-    test("Multiple argument addition", function () {
-        var args = [].toCliArguments(),
-            argCollection = [
-                'foo'.toCliArgument(),
-                'bar'.toCliArgument()
-            ].toCollection();
+    test("Arguments addition", function () {
+        var args = ['foo'].toCliArguments(),
+            remoteArgs = ['bar', 'baz'].toCliArguments();
 
-        strictEqual(args.addArguments(argCollection), args, "should be chainable");
+        strictEqual(args.addArguments(remoteArgs), args, "should be chainable");
         deepEqual(args.argumentLookup.items, {
             foo: 'foo'.toCliArgument(),
-            bar: 'bar'.toCliArgument()
+            bar: 'bar'.toCliArgument(),
+            baz: 'baz'.toCliArgument()
         }, "should set arguments in collection");
         deepEqual(args.argumentChain.getValues(), [
             'foo'.toCliArgument(),
-            'bar'.toCliArgument()
+            'bar'.toCliArgument(),
+            'baz'.toCliArgument()
         ], "should push arguments to chain");
     });
 
