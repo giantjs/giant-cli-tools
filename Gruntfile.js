@@ -13,6 +13,7 @@ module.exports = function (grunt) {
             'src/CliArguments.js',
             'src/Argv.js',
             'src/CliApplication.js',
+            'src/NodeScript.js',
             'src/exports.js'
         ],
 
