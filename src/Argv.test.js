@@ -27,7 +27,7 @@
             result = argv.toCliArguments();
 
         ok(result.isA(giant.CliArguments), "should return CliArgument instance");
-        deepEqual(result.argumentCollection.items, {
+        deepEqual(result.argumentLookup.items, {
             baz: 'baz'.toCliArgument()
         }, "should exclude first 2 arguments");
     });

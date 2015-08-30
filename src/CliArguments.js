@@ -21,15 +21,30 @@ giant.postpone(giant, 'CliArguments', function () {
         .addPrivateMethods(/** @lends giant.CliArguments# */{
             /**
              * @param {string[]} [asArray]
-             * @returns {giant.Collection}
              * @private
              */
             _parseArguments: function (asArray) {
-                return giant.Collection.create(asArray)
-                    .createWithEachItem(giant.CliArgument)
-                    .mapKeys(function (argument) {
-                        return argument.argumentName;
-                    });
+                var argumentChain = giant.OpenChain.create(),
+                    arrayLength = asArray && asArray.length || 0,
+                    i, cliArgument, cliArgumentLink;
+
+                // adding attributes to chain
+                for (i = 0; i < arrayLength; i++) {
+                    cliArgument = asArray[i].toCliArgument();
+                    cliArgumentLink = giant.ValueLink.create()
+                        .setValue(cliArgument);
+                    argumentChain.pushLink(cliArgumentLink);
+                }
+
+                this.argumentChain = argumentChain;
+
+                this.argumentLookup = asArray ?
+                    argumentChain.getValues()
+                        .toCollection()
+                        .mapKeys(function (cliArgument) {
+                            return cliArgument.argumentName;
+                        }) :
+                    giant.Collection.create();
             }
         })
         .addMethods(/** @lends giant.CliArguments# */{
@@ -40,16 +55,25 @@ giant.postpone(giant, 'CliArguments', function () {
             init: function (asArray) {
                 giant.isArrayOptional(asArray, "Invalid CLI arguments");
 
-                /** @type {giant.Collection} */
-                this.argumentCollection = asArray ?
-                    this._parseArguments(asArray) :
-                    giant.Collection.create();
+                /**
+                 * Stores associations between argument names and corresponding argument instances.
+                 * @type {giant.Collection}
+                 */
+                this.argumentLookup = undefined;
+
+                /**
+                 * Stores argument instances in a chain structure.
+                 * @type {giant.OpenChain}
+                 */
+                this.argumentChain = undefined;
 
                 /**
                  * Expected arguments. Contains default values.
                  * @type {giant.CliExpectedArguments}
                  */
                 this.expectedArguments = undefined;
+
+                this._parseArguments(asArray);
             },
 
             /**
@@ -67,7 +91,8 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {giant.CliArguments}
              */
             addArgument: function (argument) {
-                this.argumentCollection.setItem(argument.argumentName, argument);
+                this.argumentChain.pushValue(argument);
+                this.argumentLookup.setItem(argument.argumentName, argument);
                 return this;
             },
 
@@ -77,12 +102,19 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {giant.CliArguments}
              */
             addArguments: function (argumentCollection) {
+                var argumentChain = this.argumentChain;
+
+                argumentCollection.forEachItem(function (/*giant.CliArgument*/argument) {
+                    argumentChain.pushValue(argument);
+                });
+
                 // TODO: Use .mergeInto() as soon as available.
-                this.argumentCollection = this.argumentCollection
+                this.argumentLookup = this.argumentLookup
                     .mergeWith(argumentCollection
                         .mapKeys(function (argument) {
                             return argument.argumentName;
                         }));
+
                 return this;
             },
 
@@ -91,7 +123,7 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {number}
              */
             getArgumentCount: function () {
-                return this.argumentCollection.getKeyCount();
+                return this.argumentLookup.getKeyCount();
             },
 
             /**
@@ -102,7 +134,7 @@ giant.postpone(giant, 'CliArguments', function () {
             getArgumentValue: function (argumentName) {
                 var expectedArguments = this.expectedArguments,
                     expectedArgument = expectedArguments && expectedArguments.getItem(argumentName),
-                    argument = this.argumentCollection.getItem(argumentName);
+                    argument = this.argumentLookup.getItem(argumentName);
 
                 return argument && argument.argumentValue ||
                     expectedArgument && expectedArgument.defaultValue;
@@ -113,9 +145,11 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {string[]}
              */
             getAsArray: function () {
-                return this.argumentCollection
+                return this.argumentChain
+                    .getValues()
+                    .toCollection()
                     .callOnEachItem('toString')
-                    .getSortedValues();
+                    .items;
             },
 
             /**
@@ -123,9 +157,11 @@ giant.postpone(giant, 'CliArguments', function () {
              * @returns {string}
              */
             toString: function () {
-                return this.argumentCollection
-                    .callOnEachItem('toString')
+                return this.argumentChain
                     .getValues()
+                    .toCollection()
+                    .callOnEachItem('toString')
+                    .items
                     .join(' ');
             }
         });

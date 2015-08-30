@@ -6,27 +6,21 @@
     module("CliArguments");
 
     test("Instantiation with argv", function () {
-        var argumentCollection = {};
-
-        giant.CliArguments.addMocks({
-            _parseArguments: function (argv) {
-                deepEqual(argv, ['foo', 'bar', '--baz=qux'], "should parse arguments");
-                return argumentCollection;
-            }
-        });
-
         var args = giant.CliArguments.create(['foo', 'bar', '--baz=qux']);
 
-        giant.CliArguments.removeMocks();
+        deepEqual(args.argumentLookup.items, {
+            'foo': 'foo'.toCliArgument(),
+            'bar': 'bar'.toCliArgument(),
+            'baz': '--baz=qux'.toCliArgument()
+        }, "should set parsed arguments");
 
-        strictEqual(args.argumentCollection, argumentCollection, "should set parsed arguments");
         equal(typeof args.expectedArguments, 'undefined', "should add expectedArguments property");
     });
 
     test("Instantiation without argv", function () {
         var args = giant.CliArguments.create();
 
-        deepEqual(args.argumentCollection.items, {}, "should set options collection property");
+        deepEqual(args.argumentLookup.items, {}, "should set options collection property");
     });
 
     test("Conversion from array", function () {
@@ -52,8 +46,10 @@
             arg = 'foo'.toCliArgument();
 
         strictEqual(args.addArgument(arg), args, "should be chainable");
-        strictEqual(args.argumentCollection.getItem('foo'), arg,
+        strictEqual(args.argumentLookup.getItem('foo'), arg,
             "should set argument in collection");
+        strictEqual(args.argumentChain.lastLink.previousLink.value, arg,
+            "should push argument to chain");
     });
 
     test("Multiple argument addition", function () {
@@ -64,10 +60,14 @@
             ].toCollection();
 
         strictEqual(args.addArguments(argCollection), args, "should be chainable");
-        deepEqual(args.argumentCollection.items, {
+        deepEqual(args.argumentLookup.items, {
             foo: 'foo'.toCliArgument(),
             bar: 'bar'.toCliArgument()
         }, "should set arguments in collection");
+        deepEqual(args.argumentChain.getValues(), [
+            'foo'.toCliArgument(),
+            'bar'.toCliArgument()
+        ], "should push arguments to chain");
     });
 
     test("Argument count getter", function () {
@@ -95,7 +95,7 @@
     test("Array getter", function () {
         var args = ['--foo=bar', '--baz=qux', 'hello'].toCliArguments();
 
-        equal(args.getAsArray(), ['--baz=qux', '--foo=bar', 'hello'],
+        equal(args.getAsArray(), ['--foo=bar', '--baz=qux', 'hello'],
             "should return arguments array");
     });
 
