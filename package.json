@@ -1,6 +1,6 @@
 {
     "name"           : "giant-cli-tools",
-    "version"        : "0.0.4",
+    "version"        : "0.0.5",
     "description"    : "Command line tools module for Giant",
     "keywords"       : [
         "cli", "command line",
@@ -14,11 +14,11 @@
         "url" : "git@github.com:giantjs/giant-cli-tools.git"
     },
     "dependencies"   : {
-        "giant-assertion": "0.0.4",
-        "giant-data"     : "0.0.4",
-        "giant-event"    : "0.0.4",
-        "giant-namespace": "0.0.4",
-        "giant-oop"      : "0.0.4",
+        "giant-assertion": "0.0.5",
+        "giant-data"     : "0.0.5",
+        "giant-event"    : "0.0.5",
+        "giant-namespace": "0.0.5",
+        "giant-oop"      : "0.0.5",
         "q"              : "^1.4.0"
     },
     "devDependencies": {
