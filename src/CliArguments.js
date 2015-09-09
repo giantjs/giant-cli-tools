@@ -164,15 +164,12 @@ giant.postpone(giant, 'CliArguments', function () {
 (function () {
     "use strict";
 
-    giant.Properties.addProperties.call(
-        Array.prototype,
-        /** @lends Array# */{
-            /**
-             * @returns {giant.CliArguments}
-             */
-            toCliArguments: function () {
-                return giant.CliArguments.create(this);
-            }
-        },
-        false, false, false);
+    giant.extendBuiltIn(Array.prototype, /** @lends Array# */{
+        /**
+         * @returns {giant.CliArguments}
+         */
+        toCliArguments: function () {
+            return giant.CliArguments.create(this);
+        }
+    });
 }());
