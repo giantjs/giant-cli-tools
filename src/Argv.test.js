@@ -5,7 +5,7 @@
     module("Argv");
 
     test("Instantiation", function () {
-        raises(function () {
+        throws(function () {
             giant.Argv.create(654);
         }, "should raise exception on invalid arguments");
 

@@ -5,7 +5,7 @@
     module("CliApplication");
 
     test("Instantiation", function () {
-        raises(function () {
+        throws(function () {
             giant.CliApplication.create();
         }, "should raise exception on missing arguments");
 

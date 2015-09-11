@@ -5,7 +5,7 @@
     module("CliArgument");
 
     test("Instantiation", function () {
-        raises(function () {
+        throws(function () {
             giant.CliArgument.create(654);
         }, "should raise exception on invalid arguments");
 

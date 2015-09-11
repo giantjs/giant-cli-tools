@@ -5,11 +5,11 @@
     module("CliExpectedArgument");
 
     test("Instantiation", function () {
-        raises(function () {
+        throws(function () {
             giant.CliExpectedArgument.create();
         }, "should raise exception on missing arguments");
 
-        raises(function () {
+        throws(function () {
             giant.CliExpectedArgument.create(654);
         }, "should raise exception on invalid arguments");
 

@@ -5,11 +5,11 @@
     module("NodeScript");
 
     test("Instantiation", function () {
-        raises(function () {
+        throws(function () {
             giant.NodeScript.create();
         }, "should raise exception on missing arguments");
 
-        raises(function () {
+        throws(function () {
             giant.NodeScript.create('foo');
         }, "should raise exception on invalid arguments");
 
