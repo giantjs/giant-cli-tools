@@ -27,7 +27,7 @@
   "devDependencies": {
   },
   "files": [
-    "giant-cli-tools.js"
+    "lib"
   ],
-  "main": "giant-cli-tools.js"
+  "main": "lib/giant-cli-tools.js"
 }
