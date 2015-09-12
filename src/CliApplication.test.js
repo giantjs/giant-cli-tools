@@ -11,6 +11,8 @@
 
         var app = giant.CliApplication.create('foo.js');
 
+        console.log(app.applicationPath);
+
         equal(app.applicationPath, 'foo.js', "should set applicationPath property");
         equal(app.stdout, undefined, "should add stdout property");
         equal(app.stderr, undefined, "should add stderr property");
