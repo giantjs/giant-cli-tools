@@ -93,7 +93,7 @@
     test("Array getter", function () {
         var args = ['--foo=bar', '--baz=qux', 'hello'].toCliArguments();
 
-        equal(args.getAsArray(), ['--foo=bar', '--baz=qux', 'hello'],
+        deepEqual(args.getAsArray(), ['--foo=bar', '--baz=qux', 'hello'],
             "should return arguments array");
     });
 

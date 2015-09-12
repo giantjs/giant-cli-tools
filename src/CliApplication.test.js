@@ -9,34 +9,34 @@
             giant.CliApplication.create();
         }, "should raise exception on missing arguments");
 
-        var app = giant.CliApplication.create('foo.js');
+        var app = giant.CliApplication.create('foo');
 
         console.log(app.applicationPath);
 
-        equal(app.applicationPath, 'foo.js', "should set applicationPath property");
+        equal(app.applicationPath, 'foo', "should set applicationPath property");
         equal(app.stdout, undefined, "should add stdout property");
         equal(app.stderr, undefined, "should add stderr property");
         equal(app.lastError, undefined, "should add lastError property");
     });
 
     test("Conversion from string", function () {
-        var app = 'foo.js'.toCliApplication();
+        var app = 'foo'.toCliApplication();
 
         ok(app.isA(giant.CliApplication), "should return CliApplication instance");
-        equal(app.applicationPath, 'foo.js', "should set applicationPath property");
+        equal(app.applicationPath, 'foo', "should set applicationPath property");
     });
 
     asyncTest("CliApplication runner", function () {
         expect(8);
 
-        var app = 'foo.js'.toCliApplication(),
+        var app = 'foo'.toCliApplication(),
             process = {},
             processOptions = {},
             exit;
 
         app.addMocks({
             _spawnProxy: function (command, args, options) {
-                equal(command, 'foo.js', "should pass node as command");
+                equal(command, 'foo', "should pass node as command");
                 deepEqual(args, ['--hello=world'], "should pass CLI arguments");
                 strictEqual(options, processOptions, "should pass options");
                 return process;
@@ -65,7 +65,7 @@
     asyncTest("CliApplication variations runner", function () {
         expect(1);
 
-        var app = 'foo.js'.toCliApplication(),
+        var app = 'foo'.toCliApplication(),
             cliArgVariations = [
                 ['--foo=bar'].toCliArguments(),
                 ['--hello=world'].toCliArguments()
