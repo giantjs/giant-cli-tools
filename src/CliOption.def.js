@@ -32,7 +32,7 @@ giant.postpone(giant, 'CliOption', function () {
             init: function (argumentStr) {
                 base.init.call(this, argumentStr);
 
-                var keyValuePair = argumentStr && this.RE_OPTION.exec(argumentStr);
+                var keyValuePair = argumentStr && self.RE_OPTION.exec(argumentStr);
 
                 giant.assert(keyValuePair, "Malformed option string");
 
