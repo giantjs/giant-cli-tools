@@ -1,15 +1,15 @@
-/*global giant */
-$oop.postpone(giant, 'CliArgument', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliArgument', function () {
     "use strict";
 
     var base = $oop.Base,
         self = base.extend();
 
     /**
-     * @name giant.CliArgument.create
+     * @name $cliTools.CliArgument.create
      * @function
      * @param {string} [argumentStr]
-     * @returns {giant.CliArgument}
+     * @returns {$cliTools.CliArgument}
      */
 
     /**
@@ -18,8 +18,8 @@ $oop.postpone(giant, 'CliArgument', function () {
      * @class
      * @extends $oop.Base
      */
-    giant.CliArgument = self
-        .addMethods(/** @lends giant.CliArgument# */{
+    $cliTools.CliArgument = self
+        .addMethods(/** @lends $cliTools.CliArgument# */{
             /**
              * @param {string} [argumentStr]
              * @ignore
@@ -42,7 +42,7 @@ $oop.postpone(giant, 'CliArgument', function () {
 
             /**
              * @param {string} argumentName
-             * @returns {giant.CliArgument}
+             * @returns {$cliTools.CliArgument}
              */
             setArgumentName: function (argumentName) {
                 this.argumentName = argumentName;
@@ -51,7 +51,7 @@ $oop.postpone(giant, 'CliArgument', function () {
 
             /**
              * @param {string} argumentValue
-             * @returns {giant.CliArgument}
+             * @returns {$cliTools.CliArgument}
              */
             setArgumentValue: function (argumentValue) {
                 this.argumentValue = argumentValue;
@@ -65,10 +65,10 @@ $oop.postpone(giant, 'CliArgument', function () {
 
     $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
-         * @returns {giant.CliArgument}
+         * @returns {$cliTools.CliArgument}
          */
         toCliArgument: function () {
-            return giant.CliArgument.create(this);
+            return $cliTools.CliArgument.create(this);
         }
     });
 }());

@@ -1,23 +1,23 @@
-/*global giant */
-$oop.postpone(giant, 'CliFlag', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliFlag', function () {
     "use strict";
 
-    var base = giant.CliArgument,
+    var base = $cliTools.CliArgument,
         self = base.extend();
 
     /**
-     * @name giant.CliFlag.create
+     * @name $cliTools.CliFlag.create
      * @function
      * @param {string} [argumentStr]
-     * @returns {giant.CliFlag}
+     * @returns {$cliTools.CliFlag}
      */
 
     /**
      * @class
-     * @extends giant.CliArgument
+     * @extends $cliTools.CliArgument
      */
-    giant.CliFlag = self
-        .addMethods(/** @lends giant.CliFlag# */{
+    $cliTools.CliFlag = self
+        .addMethods(/** @lends $cliTools.CliFlag# */{
             /**
              * @param {string} [argumentStr]
              * @ignore
@@ -39,11 +39,11 @@ $oop.postpone(giant, 'CliFlag', function () {
         });
 });
 
-$oop.amendPostponed(giant, 'CliArgument', function () {
+$oop.amendPostponed($cliTools, 'CliArgument', function () {
     "use strict";
 
-    giant.CliArgument
-        .addSurrogate(giant, 'CliFlag', function (argumentStr) {
-            return typeof argumentStr === 'string' && !giant.CliOption.RE_OPTION.test(argumentStr);
+    $cliTools.CliArgument
+        .addSurrogate($cliTools, 'CliFlag', function (argumentStr) {
+            return typeof argumentStr === 'string' && !$cliTools.CliOption.RE_OPTION.test(argumentStr);
         });
 });

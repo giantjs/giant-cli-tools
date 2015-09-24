@@ -1,4 +1,4 @@
-/*global giant, Q */
+/*global $cliTools, Q */
 (function () {
     "use strict";
 
@@ -6,10 +6,10 @@
 
     test("Instantiation", function () {
         throws(function () {
-            giant.CliApplication.create();
+            $cliTools.CliApplication.create();
         }, "should raise exception on missing arguments");
 
-        var app = giant.CliApplication.create('foo');
+        var app = $cliTools.CliApplication.create('foo');
 
         console.log(app.applicationPath);
 
@@ -22,7 +22,7 @@
     test("Conversion from string", function () {
         var app = 'foo'.toCliApplication();
 
-        ok(app.isA(giant.CliApplication), "should return CliApplication instance");
+        ok(app.isA($cliTools.CliApplication), "should return CliApplication instance");
         equal(app.applicationPath, 'foo', "should set applicationPath property");
     });
 

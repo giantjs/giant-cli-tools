@@ -1,23 +1,23 @@
-/*global giant, Q */
+/*global $cliTools, Q */
 /*jshint node:true */
-$oop.postpone(giant, 'CliApplication', function () {
+$oop.postpone($cliTools, 'CliApplication', function () {
     "use strict";
 
     var base = $oop.Base,
         self = base.extend();
 
     /**
-     * @name giant.CliApplication.create
+     * @name $cliTools.CliApplication.create
      * @function
      * @param {string} scriptPath
-     * @returns {giant.CliApplication}
+     * @returns {$cliTools.CliApplication}
      */
 
     /**
      * @class
      * @extends $oop.Base
      */
-    giant.CliApplication = self
+    $cliTools.CliApplication = self
         .addPrivateMethods(/** @lends CliApplication# */{
             /**
              * @param {string} command
@@ -42,7 +42,7 @@ $oop.postpone(giant, 'CliApplication', function () {
                 return process.on(eventName, handler);
             }
         })
-        .addMethods(/** @lends giant.CliApplication# */{
+        .addMethods(/** @lends $cliTools.CliApplication# */{
             /**
              * @param {string} applicationPath
              * @ignore
@@ -76,7 +76,7 @@ $oop.postpone(giant, 'CliApplication', function () {
             },
 
             /**
-             * @param {giant.CliArguments} cliArguments
+             * @param {$cliTools.CliArguments} cliArguments
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
@@ -138,10 +138,10 @@ $oop.postpone(giant, 'CliApplication', function () {
 
     $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
-         * @returns {giant.CliApplication}
+         * @returns {$cliTools.CliApplication}
          */
         toCliApplication: function () {
-            return giant.CliApplication.create(this.valueOf());
+            return $cliTools.CliApplication.create(this.valueOf());
         }
     });
 }());

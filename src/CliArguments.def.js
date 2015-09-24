@@ -1,15 +1,15 @@
-/*global giant */
-$oop.postpone(giant, 'CliArguments', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliArguments', function () {
     "use strict";
 
     var base = $oop.Base,
         self = base.extend();
 
     /**
-     * @name giant.CliArguments.create
+     * @name $cliTools.CliArguments.create
      * @function
      * @param {string[]} [argv]
-     * @returns {giant.CliArguments}
+     * @returns {$cliTools.CliArguments}
      */
 
     /**
@@ -17,8 +17,8 @@ $oop.postpone(giant, 'CliArguments', function () {
      * @class
      * @extends $oop.Base
      */
-    giant.CliArguments = self
-        .addPrivateMethods(/** @lends giant.CliArguments# */{
+    $cliTools.CliArguments = self
+        .addPrivateMethods(/** @lends $cliTools.CliArguments# */{
             /**
              * @param {string[]} [asArray]
              * @private
@@ -47,7 +47,7 @@ $oop.postpone(giant, 'CliArguments', function () {
                     $data.Collection.create();
             }
         })
-        .addMethods(/** @lends giant.CliArguments# */{
+        .addMethods(/** @lends $cliTools.CliArguments# */{
             /**
              * @param {string[]} asArray
              * @ignore
@@ -69,7 +69,7 @@ $oop.postpone(giant, 'CliArguments', function () {
 
                 /**
                  * Expected arguments. Contains default values.
-                 * @type {giant.CliExpectedArguments}
+                 * @type {$cliTools.CliExpectedArguments}
                  */
                 this.expectedArguments = undefined;
 
@@ -77,8 +77,8 @@ $oop.postpone(giant, 'CliArguments', function () {
             },
 
             /**
-             * @param {giant.CliExpectedArguments} expectedArguments
-             * @returns {giant.CliArguments}
+             * @param {$cliTools.CliExpectedArguments} expectedArguments
+             * @returns {$cliTools.CliArguments}
              */
             setExpectedArguments: function (expectedArguments) {
                 this.expectedArguments = expectedArguments;
@@ -87,8 +87,8 @@ $oop.postpone(giant, 'CliArguments', function () {
 
             /**
              * Appends a single argument to the list of arguments.
-             * @param {giant.CliArgument} cliArgument
-             * @returns {giant.CliArguments}
+             * @param {$cliTools.CliArgument} cliArgument
+             * @returns {$cliTools.CliArguments}
              */
             appendArgument: function (cliArgument) {
                 this.argumentChain.pushValue(cliArgument);
@@ -98,8 +98,8 @@ $oop.postpone(giant, 'CliArguments', function () {
 
             /**
              * Appends multiple arguments to the list of arguments.
-             * @param {giant.CliArguments} cliArguments
-             * @returns {giant.CliArguments}
+             * @param {$cliTools.CliArguments} cliArguments
+             * @returns {$cliTools.CliArguments}
              */
             appendArguments: function (cliArguments) {
                 var that = this;
@@ -166,10 +166,10 @@ $oop.postpone(giant, 'CliArguments', function () {
 
     $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
         /**
-         * @returns {giant.CliArguments}
+         * @returns {$cliTools.CliArguments}
          */
         toCliArguments: function () {
-            return giant.CliArguments.create(this);
+            return $cliTools.CliArguments.create(this);
         }
     });
 }());

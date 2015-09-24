@@ -1,20 +1,20 @@
-/*global giant */
+/*global $cliTools */
 (function () {
     "use strict";
 
     module("CliOption");
 
     test("Instantiation", function () {
-        var cliArgument = giant.CliFlag.create('foo');
+        var cliArgument = $cliTools.CliFlag.create('foo');
 
         equal(cliArgument.argumentName, 'foo', "should set argumentName");
         equal(cliArgument.argumentValue, true, "should set argumentValue");
     });
 
     test("CliArgument surrogate", function () {
-        var cliArgument = giant.CliArgument.create('foo');
+        var cliArgument = $cliTools.CliArgument.create('foo');
 
-        ok(cliArgument.isA(giant.CliFlag), "should return CliFlag instance");
+        ok(cliArgument.isA($cliTools.CliFlag), "should return CliFlag instance");
         equal(cliArgument.argumentName, 'foo', "should set argumentName");
         equal(cliArgument.argumentValue, true, "should set argumentValue");
     });

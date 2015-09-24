@@ -1,11 +1,11 @@
-/*global giant */
+/*global $cliTools */
 (function () {
     "use strict";
 
     module("CliExpectedArguments");
 
     test("Argument description setter", function () {
-        var cliExpectedArguments = giant.CliExpectedArguments.create();
+        var cliExpectedArguments = $cliTools.CliExpectedArguments.create();
 
         strictEqual(cliExpectedArguments.setArgumentDescriptions({
             foo: 'bar'
@@ -21,7 +21,7 @@
     });
 
     test("Default values setter", function () {
-        var cliExpectedArguments = giant.CliExpectedArguments.create();
+        var cliExpectedArguments = $cliTools.CliExpectedArguments.create();
 
         strictEqual(cliExpectedArguments.setDefaultValues({
             foo: 'bar'
@@ -37,7 +37,7 @@
     });
 
     test("Help string getter", function () {
-        var cliExpectedArguments = giant.CliExpectedArguments.create()
+        var cliExpectedArguments = $cliTools.CliExpectedArguments.create()
             .setArgumentDescriptions({
                 foo: 'bar',
                 baz: 'qux'

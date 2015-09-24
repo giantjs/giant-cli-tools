@@ -1,4 +1,4 @@
-/*global giant */
+/*global $cliTools */
 (function () {
     "use strict";
 
@@ -6,14 +6,14 @@
 
     test("Instantiation", function () {
         throws(function () {
-            giant.CliExpectedArgument.create();
+            $cliTools.CliExpectedArgument.create();
         }, "should raise exception on missing arguments");
 
         throws(function () {
-            giant.CliExpectedArgument.create(654);
+            $cliTools.CliExpectedArgument.create(654);
         }, "should raise exception on invalid arguments");
 
-        var cliArgument = giant.CliExpectedArgument.create('foo');
+        var cliArgument = $cliTools.CliExpectedArgument.create('foo');
 
         equal(cliArgument.argumentName, 'foo', "should set argumentName property");
         ok(cliArgument.hasOwnProperty('argumentDescription'),
@@ -29,7 +29,7 @@
     test("Conversion from string", function () {
         var cliArgument = 'foo'.toCliExpectedArgument();
 
-        ok(cliArgument.isA(giant.CliExpectedArgument), "should return CliExpectedArgument instance");
+        ok(cliArgument.isA($cliTools.CliExpectedArgument), "should return CliExpectedArgument instance");
         equal(cliArgument.argumentName, 'foo', "should set argumentName property");
     });
 

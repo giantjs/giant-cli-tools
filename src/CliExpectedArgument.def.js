@@ -1,23 +1,23 @@
-/*global giant */
-$oop.postpone(giant, 'CliExpectedArgument', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliExpectedArgument', function () {
     "use strict";
 
     var base = $oop.Base,
         self = base.extend();
 
     /**
-     * @name giant.CliExpectedArgument.create
+     * @name $cliTools.CliExpectedArgument.create
      * @function
      * @param {string} argumentName
-     * @returns {giant.CliExpectedArgument}
+     * @returns {$cliTools.CliExpectedArgument}
      */
 
     /**
      * @class
      * @extends $oop.Base
      */
-    giant.CliExpectedArgument = self
-        .addMethods(/** @lends giant.CliExpectedArgument# */{
+    $cliTools.CliExpectedArgument = self
+        .addMethods(/** @lends $cliTools.CliExpectedArgument# */{
             /**
              * @param {string} argumentName
              * @ignore
@@ -48,7 +48,7 @@ $oop.postpone(giant, 'CliExpectedArgument', function () {
              * Sets description string for argument. This description will end up in
              * `CliExpectedArguments.getHelpString()`.
              * @param {string} argumentDescription
-             * @returns {giant.CliExpectedArgument}
+             * @returns {$cliTools.CliExpectedArgument}
              */
             setArgumentDescription: function (argumentDescription) {
                 this.argumentDescription = argumentDescription;
@@ -60,7 +60,7 @@ $oop.postpone(giant, 'CliExpectedArgument', function () {
              * value it is treated as mandatory, and will lead to fail argument processing
              * when omitted.
              * @param {*} defaultValue
-             * @returns {giant.CliExpectedArgument}
+             * @returns {$cliTools.CliExpectedArgument}
              */
             setDefaultValue: function (defaultValue) {
                 this.defaultValue = defaultValue;
@@ -82,10 +82,10 @@ $oop.postpone(giant, 'CliExpectedArgument', function () {
 
     $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
-         * @returns {giant.CliExpectedArgument}
+         * @returns {$cliTools.CliExpectedArgument}
          */
         toCliExpectedArgument: function () {
-            return giant.CliExpectedArgument.create(this.valueOf());
+            return $cliTools.CliExpectedArgument.create(this.valueOf());
         }
     });
 }());

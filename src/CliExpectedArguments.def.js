@@ -1,21 +1,21 @@
-/*global giant */
-$oop.postpone(giant, 'CliExpectedArguments', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliExpectedArguments', function () {
     "use strict";
 
     /**
-     * @name giant.CliExpectedArguments.create
+     * @name $cliTools.CliExpectedArguments.create
      * @function
      * @param {object|Array} [items]
-     * @returns {giant.CliExpectedArguments}
+     * @returns {$cliTools.CliExpectedArguments}
      */
 
     /**
      * @class
      * @extends $data.Collection
-     * @extends giant.CliExpectedArgument
+     * @extends $cliTools.CliExpectedArgument
      */
-    giant.CliExpectedArguments = $data.Collection.of(giant.CliExpectedArgument)
-        .addPrivateMethods(/** @lends giant.CliExpectedArguments# */{
+    $cliTools.CliExpectedArguments = $data.Collection.of($cliTools.CliExpectedArgument)
+        .addPrivateMethods(/** @lends $cliTools.CliExpectedArguments# */{
             /**
              *
              * @param {$data.Set} newArgumentSet
@@ -32,12 +32,12 @@ $oop.postpone(giant, 'CliExpectedArguments', function () {
                     });
             }
         })
-        .addMethods(/** @lends giant.CliExpectedArguments# */{
+        .addMethods(/** @lends $cliTools.CliExpectedArguments# */{
             /**
              * Sets description for each argument.
              * @param {object} argumentDescriptions Default argument descriptions
              * indexed by argument names.
-             * @returns {giant.CliExpectedArguments}
+             * @returns {$cliTools.CliExpectedArguments}
              */
             setArgumentDescriptions: function (argumentDescriptions) {
                 this._addNewArguments($data.Set.create(argumentDescriptions));
@@ -56,7 +56,7 @@ $oop.postpone(giant, 'CliExpectedArguments', function () {
             /**
              * Sets default value for each argument.
              * @param {object} defaultValues Default argument values indexed by argument names.
-             * @returns {giant.CliExpectedArguments}
+             * @returns {$cliTools.CliExpectedArguments}
              */
             setDefaultValues: function (defaultValues) {
                 this._addNewArguments($data.Set.create(defaultValues));

@@ -1,23 +1,23 @@
-/*global giant */
+/*global $cliTools */
 /*jshint node:true */
-$oop.postpone(giant, 'Argv', function () {
+$oop.postpone($cliTools, 'Argv', function () {
     "use strict";
 
     var base = $oop.Base,
         self = base.extend();
 
     /**
-     * @name giant.Argv.create
+     * @name $cliTools.Argv.create
      * @function
-     * @returns {giant.Argv}
+     * @returns {$cliTools.Argv}
      */
 
     /**
      * @class
      * @extends $oop.Base
      */
-    giant.Argv = self
-        .addMethods(/** @lends giant.Argv# */{
+    $cliTools.Argv = self
+        .addMethods(/** @lends $cliTools.Argv# */{
             /**
              * @param {string[]} argv
              * @ignore
@@ -35,7 +35,7 @@ $oop.postpone(giant, 'Argv', function () {
             /**
              * Converts Argv instance to CliArguments.
              * The result will only contain user arguments passed to the script.
-             * @returns {giant.CliArguments}
+             * @returns {$cliTools.CliArguments}
              */
             toCliArguments: function () {
                 // removing first 2 arguments
@@ -50,10 +50,10 @@ $oop.postpone(giant, 'Argv', function () {
     $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
         /**
          * Converts the array into an Argv instance.
-         * @returns {giant.Argv}
+         * @returns {$cliTools.Argv}
          */
         toArgv: function () {
-            return giant.Argv.create(this);
+            return $cliTools.Argv.create(this);
         }
     });
 }());

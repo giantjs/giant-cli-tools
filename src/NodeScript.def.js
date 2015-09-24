@@ -1,30 +1,30 @@
-/*global giant */
-$oop.postpone(giant, 'NodeScript', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'NodeScript', function () {
     "use strict";
 
-    var base = giant.CliApplication,
+    var base = $cliTools.CliApplication,
         self = base.extend();
 
     /**
-     * @name giant.NodeScript.create
+     * @name $cliTools.NodeScript.create
      * @function
      * @param {string} scriptPath
-     * @returns {giant.NodeScript}
+     * @returns {$cliTools.NodeScript}
      */
 
     /**
      * @class
-     * @extends giant.CliApplication
+     * @extends $cliTools.CliApplication
      */
-    giant.NodeScript = self
-        .addConstants(/** @lends giant.NodeScript */{
+    $cliTools.NodeScript = self
+        .addConstants(/** @lends $cliTools.NodeScript */{
             /**
              * @type {RegExp}
              * @constant
              */
             RE_JAVASCRIPT_PATH: /.*\.js$/
         })
-        .addMethods(/** @lends giant.NodeScript# */{
+        .addMethods(/** @lends $cliTools.NodeScript# */{
             /**
              * @param {string} scriptPath
              * @ignore
@@ -39,7 +39,7 @@ $oop.postpone(giant, 'NodeScript', function () {
             },
 
             /**
-             * @param {giant.CliArguments} cliArguments
+             * @param {$cliTools.CliArguments} cliArguments
              * @param {object} [processOptions]
              * @returns {Q.promise}
              */
@@ -54,11 +54,11 @@ $oop.postpone(giant, 'NodeScript', function () {
         });
 });
 
-$oop.amendPostponed(giant, 'CliApplication', function () {
+$oop.amendPostponed($cliTools, 'CliApplication', function () {
     "use strict";
 
-    giant.CliApplication
-        .addSurrogate(giant, 'NodeScript', function (applicationPath) {
-            return giant.NodeScript.RE_JAVASCRIPT_PATH.test(applicationPath);
+    $cliTools.CliApplication
+        .addSurrogate($cliTools, 'NodeScript', function (applicationPath) {
+            return $cliTools.NodeScript.RE_JAVASCRIPT_PATH.test(applicationPath);
         });
 });

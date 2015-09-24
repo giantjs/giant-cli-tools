@@ -1,22 +1,22 @@
-/*global giant */
-$oop.postpone(giant, 'CliOption', function () {
+/*global $cliTools */
+$oop.postpone($cliTools, 'CliOption', function () {
     "use strict";
 
-    var base = giant.CliArgument,
+    var base = $cliTools.CliArgument,
         self = base.extend();
 
     /**
-     * @name giant.CliOption.create
+     * @name $cliTools.CliOption.create
      * @function
      * @param {string} [argumentStr]
-     * @returns {giant.CliOption}
+     * @returns {$cliTools.CliOption}
      */
 
     /**
      * @class
-     * @extends giant.CliArgument
+     * @extends $cliTools.CliArgument
      */
-    giant.CliOption = self
+    $cliTools.CliOption = self
         .addConstants(/** @lends CliOption */{
             /**
              * Defines the pattern an option must adhere to.
@@ -24,7 +24,7 @@ $oop.postpone(giant, 'CliOption', function () {
              */
             RE_OPTION: /--([^=]+)=(.*)/
         })
-        .addMethods(/** @lends giant.CliOption# */{
+        .addMethods(/** @lends $cliTools.CliOption# */{
             /**
              * @param {string} [argumentStr]
              * @ignore
@@ -50,11 +50,11 @@ $oop.postpone(giant, 'CliOption', function () {
         });
 });
 
-$oop.amendPostponed(giant, 'CliArgument', function () {
+$oop.amendPostponed($cliTools, 'CliArgument', function () {
     "use strict";
 
-    giant.CliArgument
-        .addSurrogate(giant, 'CliOption', function (argumentStr) {
-            return giant.CliOption.RE_OPTION.test(argumentStr);
+    $cliTools.CliArgument
+        .addSurrogate($cliTools, 'CliOption', function (argumentStr) {
+            return $cliTools.CliOption.RE_OPTION.test(argumentStr);
         });
 });
