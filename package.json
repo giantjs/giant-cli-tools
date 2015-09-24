@@ -1,6 +1,6 @@
 {
   "name": "giant-cli-tools",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Command line tools module for Giant",
   "keywords": [
     "cli",
