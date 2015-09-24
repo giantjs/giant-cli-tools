@@ -23,7 +23,7 @@ giant.postpone(giant, 'CliExpectedArgument', function () {
              * @ignore
              */
             init: function (argumentName) {
-                giant.isString(argumentName, "Invalid CLI argument name");
+                $assertion.isString(argumentName, "Invalid CLI argument name");
 
                 /**
                  * Identifies the argument.

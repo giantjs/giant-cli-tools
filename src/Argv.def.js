@@ -23,7 +23,7 @@ giant.postpone(giant, 'Argv', function () {
              * @ignore
              */
             init: function (argv) {
-                giant.isArray(argv, "Invalid argv");
+                $assertion.isArray(argv, "Invalid argv");
 
                 /**
                  * Process argument list.

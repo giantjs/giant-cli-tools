@@ -30,7 +30,7 @@ giant.postpone(giant, 'NodeScript', function () {
              * @ignore
              */
             init: function (scriptPath) {
-                giant.assert(self.RE_JAVASCRIPT_PATH.test(scriptPath), "Invalid node script path");
+                $assertion.assert(self.RE_JAVASCRIPT_PATH.test(scriptPath), "Invalid node script path");
 
                 base.init.call(this, 'node');
 

@@ -53,7 +53,7 @@ giant.postpone(giant, 'CliArguments', function () {
              * @ignore
              */
             init: function (asArray) {
-                giant.isArrayOptional(asArray, "Invalid CLI arguments");
+                $assertion.isArrayOptional(asArray, "Invalid CLI arguments");
 
                 /**
                  * Stores associations between argument names and corresponding argument instances.

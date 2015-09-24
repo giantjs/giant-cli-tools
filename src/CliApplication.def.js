@@ -48,7 +48,7 @@ giant.postpone(giant, 'CliApplication', function () {
              * @ignore
              */
             init: function (applicationPath) {
-                giant.isString(applicationPath, "Invalid application path");
+                $assertion.isString(applicationPath, "Invalid application path");
 
                 /**
                  * Path where the application is located.

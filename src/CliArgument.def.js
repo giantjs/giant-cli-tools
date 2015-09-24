@@ -25,7 +25,7 @@ giant.postpone(giant, 'CliArgument', function () {
              * @ignore
              */
             init: function (argumentStr) {
-                giant.isStringOptional(argumentStr, "Invalid CLI argument string");
+                $assertion.isStringOptional(argumentStr, "Invalid CLI argument string");
 
                 /**
                  * Option name.

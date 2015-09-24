@@ -34,7 +34,7 @@ giant.postpone(giant, 'CliOption', function () {
 
                 var keyValuePair = argumentStr && self.RE_OPTION.exec(argumentStr);
 
-                giant.assert(keyValuePair, "Malformed option string");
+                $assertion.assert(keyValuePair, "Malformed option string");
 
                 this.argumentName = keyValuePair[1];
                 this.argumentValue = keyValuePair[2];
