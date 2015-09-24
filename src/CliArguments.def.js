@@ -24,14 +24,14 @@ $oop.postpone(giant, 'CliArguments', function () {
              * @private
              */
             _parseArguments: function (asArray) {
-                var argumentChain = giant.OpenChain.create(),
+                var argumentChain = $data.OpenChain.create(),
                     arrayLength = asArray && asArray.length || 0,
                     i, cliArgument, cliArgumentLink;
 
                 // adding attributes to chain
                 for (i = 0; i < arrayLength; i++) {
                     cliArgument = asArray[i].toCliArgument();
-                    cliArgumentLink = giant.ValueLink.create()
+                    cliArgumentLink = $data.ValueLink.create()
                         .setValue(cliArgument);
                     argumentChain.pushLink(cliArgumentLink);
                 }
@@ -44,7 +44,7 @@ $oop.postpone(giant, 'CliArguments', function () {
                         .mapKeys(function (cliArgument) {
                             return cliArgument.argumentName;
                         }) :
-                    giant.Collection.create();
+                    $data.Collection.create();
             }
         })
         .addMethods(/** @lends giant.CliArguments# */{
@@ -57,13 +57,13 @@ $oop.postpone(giant, 'CliArguments', function () {
 
                 /**
                  * Stores associations between argument names and corresponding argument instances.
-                 * @type {giant.Collection}
+                 * @type {$data.Collection}
                  */
                 this.argumentLookup = undefined;
 
                 /**
                  * Stores argument instances in a chain structure.
-                 * @type {giant.OpenChain}
+                 * @type {$data.OpenChain}
                  */
                 this.argumentChain = undefined;
 
@@ -105,7 +105,7 @@ $oop.postpone(giant, 'CliArguments', function () {
                 var that = this;
 
                 cliArguments.argumentChain
-                    .forEachLink(function (/**giant.ValueLink*/link) {
+                    .forEachLink(function (/**$data.ValueLink*/link) {
                         that.appendArgument(link.value);
                     });
 

@@ -11,14 +11,14 @@ $oop.postpone(giant, 'CliExpectedArguments', function () {
 
     /**
      * @class
-     * @extends giant.Collection
+     * @extends $data.Collection
      * @extends giant.CliExpectedArgument
      */
-    giant.CliExpectedArguments = giant.Collection.of(giant.CliExpectedArgument)
+    giant.CliExpectedArguments = $data.Collection.of(giant.CliExpectedArgument)
         .addPrivateMethods(/** @lends giant.CliExpectedArguments# */{
             /**
              *
-             * @param {giant.Set} newArgumentSet
+             * @param {$data.Set} newArgumentSet
              * @private
              */
             _addNewArguments: function (newArgumentSet) {
@@ -40,11 +40,11 @@ $oop.postpone(giant, 'CliExpectedArguments', function () {
              * @returns {giant.CliExpectedArguments}
              */
             setArgumentDescriptions: function (argumentDescriptions) {
-                this._addNewArguments(giant.Set.create(argumentDescriptions));
+                this._addNewArguments($data.Set.create(argumentDescriptions));
 
                 var that = this;
 
-                giant.Collection.create(argumentDescriptions)
+                $data.Collection.create(argumentDescriptions)
                     .forEachItem(function (argumentDescription, argumentName) {
                         that.getItem(argumentName)
                             .setArgumentDescription(argumentDescription);
@@ -59,11 +59,11 @@ $oop.postpone(giant, 'CliExpectedArguments', function () {
              * @returns {giant.CliExpectedArguments}
              */
             setDefaultValues: function (defaultValues) {
-                this._addNewArguments(giant.Set.create(defaultValues));
+                this._addNewArguments($data.Set.create(defaultValues));
 
                 var that = this;
 
-                giant.Collection.create(defaultValues)
+                $data.Collection.create(defaultValues)
                     .forEachItem(function (defaultValue, argumentName) {
                         that.getItem(argumentName)
                             .setDefaultValue(defaultValue);
