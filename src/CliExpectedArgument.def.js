@@ -1,8 +1,8 @@
 /*global giant */
-giant.postpone(giant, 'CliExpectedArgument', function () {
+$oop.postpone(giant, 'CliExpectedArgument', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -14,7 +14,7 @@ giant.postpone(giant, 'CliExpectedArgument', function () {
 
     /**
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.CliExpectedArgument = self
         .addMethods(/** @lends giant.CliExpectedArgument# */{
@@ -80,7 +80,7 @@ giant.postpone(giant, 'CliExpectedArgument', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+    $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * @returns {giant.CliExpectedArgument}
          */

@@ -1,5 +1,5 @@
 /*global giant */
-giant.postpone(giant, 'CliExpectedArguments', function () {
+$oop.postpone(giant, 'CliExpectedArguments', function () {
     "use strict";
 
     /**

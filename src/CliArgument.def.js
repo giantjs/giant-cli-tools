@@ -1,8 +1,8 @@
 /*global giant */
-giant.postpone(giant, 'CliArgument', function () {
+$oop.postpone(giant, 'CliArgument', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -16,7 +16,7 @@ giant.postpone(giant, 'CliArgument', function () {
      * Represents a single argument of a CLI application, which is
      * either interpreted as a command / flag, or an option.
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.CliArgument = self
         .addMethods(/** @lends giant.CliArgument# */{
@@ -63,7 +63,7 @@ giant.postpone(giant, 'CliArgument', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+    $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * @returns {giant.CliArgument}
          */

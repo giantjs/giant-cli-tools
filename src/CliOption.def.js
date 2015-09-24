@@ -1,5 +1,5 @@
 /*global giant */
-giant.postpone(giant, 'CliOption', function () {
+$oop.postpone(giant, 'CliOption', function () {
     "use strict";
 
     var base = giant.CliArgument,
@@ -50,7 +50,7 @@ giant.postpone(giant, 'CliOption', function () {
         });
 });
 
-giant.amendPostponed(giant, 'CliArgument', function () {
+$oop.amendPostponed(giant, 'CliArgument', function () {
     "use strict";
 
     giant.CliArgument

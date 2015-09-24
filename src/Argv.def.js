@@ -1,9 +1,9 @@
 /*global giant */
 /*jshint node:true */
-giant.postpone(giant, 'Argv', function () {
+$oop.postpone(giant, 'Argv', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -14,7 +14,7 @@ giant.postpone(giant, 'Argv', function () {
 
     /**
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.Argv = self
         .addMethods(/** @lends giant.Argv# */{
@@ -47,7 +47,7 @@ giant.postpone(giant, 'Argv', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(Array.prototype, /** @lends Array# */{
+    $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
         /**
          * Converts the array into an Argv instance.
          * @returns {giant.Argv}

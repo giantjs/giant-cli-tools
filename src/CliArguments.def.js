@@ -1,8 +1,8 @@
 /*global giant */
-giant.postpone(giant, 'CliArguments', function () {
+$oop.postpone(giant, 'CliArguments', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -15,7 +15,7 @@ giant.postpone(giant, 'CliArguments', function () {
     /**
      * Implements CLI argument processing.
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.CliArguments = self
         .addPrivateMethods(/** @lends giant.CliArguments# */{
@@ -164,7 +164,7 @@ giant.postpone(giant, 'CliArguments', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(Array.prototype, /** @lends Array# */{
+    $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
         /**
          * @returns {giant.CliArguments}
          */

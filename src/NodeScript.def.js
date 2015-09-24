@@ -1,5 +1,5 @@
 /*global giant */
-giant.postpone(giant, 'NodeScript', function () {
+$oop.postpone(giant, 'NodeScript', function () {
     "use strict";
 
     var base = giant.CliApplication,
@@ -54,7 +54,7 @@ giant.postpone(giant, 'NodeScript', function () {
         });
 });
 
-giant.amendPostponed(giant, 'CliApplication', function () {
+$oop.amendPostponed(giant, 'CliApplication', function () {
     "use strict";
 
     giant.CliApplication

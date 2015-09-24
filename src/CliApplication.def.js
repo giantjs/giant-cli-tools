@@ -1,9 +1,9 @@
 /*global giant, Q */
 /*jshint node:true */
-giant.postpone(giant, 'CliApplication', function () {
+$oop.postpone(giant, 'CliApplication', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -15,7 +15,7 @@ giant.postpone(giant, 'CliApplication', function () {
 
     /**
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.CliApplication = self
         .addPrivateMethods(/** @lends CliApplication# */{
@@ -136,7 +136,7 @@ giant.postpone(giant, 'CliApplication', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+    $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * @returns {giant.CliApplication}
          */
