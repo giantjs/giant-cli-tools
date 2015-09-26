@@ -1,4 +1,3 @@
-/*global $cliTools */
 $oop.postpone($cliTools, 'CliFlag', function () {
     "use strict";
 

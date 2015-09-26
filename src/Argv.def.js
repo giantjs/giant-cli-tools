@@ -1,4 +1,3 @@
-/*global $cliTools */
 /*jshint node:true */
 $oop.postpone($cliTools, 'Argv', function () {
     "use strict";

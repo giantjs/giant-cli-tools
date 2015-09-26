@@ -1,4 +1,3 @@
-/*global $cliTools, Q */
 (function () {
     "use strict";
 

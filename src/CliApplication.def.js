@@ -1,4 +1,3 @@
-/*global $cliTools, Q */
 /*jshint node:true */
 $oop.postpone($cliTools, 'CliApplication', function () {
     "use strict";

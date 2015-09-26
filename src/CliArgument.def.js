@@ -1,4 +1,3 @@
-/*global $cliTools */
 $oop.postpone($cliTools, 'CliArgument', function () {
     "use strict";
 
