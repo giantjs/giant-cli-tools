@@ -25,7 +25,7 @@
         equal(app.applicationPath, 'foo', "should set applicationPath property");
     });
 
-    asyncTest("CliApplication runner", function () {
+    test("CliApplication runner", function () {
         expect(8);
 
         var app = 'foo'.toCliApplication(),
@@ -55,13 +55,12 @@
                 equal(app.stdout, 'O', "should set stdout property");
                 equal(app.stderr, 'E', "should set stderr property");
                 equal(app.lastError, 'err', "should set lastError property");
-                start();
             });
 
         exit('err', 'O', 'E');
     });
 
-    asyncTest("CliApplication variations runner", function () {
+    test("CliApplication variations runner", function () {
         expect(1);
 
         var app = 'foo'.toCliApplication(),
@@ -74,7 +73,7 @@
         app.addMocks({
             runCli: function (cliArguments) {
                 runScriptParams.push(cliArguments.toString());
-                var deferred = Q.defer();
+                var deferred = $utils.Deferred.create();
                 deferred.resolve();
                 return deferred.promise;
             }
@@ -86,8 +85,6 @@
                     '--foo=bar',
                     '--hello=world'
                 ], "should run scripts for all argument variations");
-
-                start();
             });
     });
 }());

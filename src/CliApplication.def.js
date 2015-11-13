@@ -77,12 +77,12 @@ $oop.postpone($cliTools, 'CliApplication', function () {
             /**
              * @param {$cliTools.CliArguments} cliArguments
              * @param {object} [processOptions]
-             * @returns {Q.promise}
+             * @returns {$utils.Promise}
              */
             runCli: function (cliArguments, processOptions) {
                 var that = this,
                     scriptProcess = this._spawnProxy(this.applicationPath, cliArguments.getAsArray(), processOptions),
-                    deferred = Q.defer();
+                    deferred = $utils.Deferred.create();
 
                 this._processOnProxy(scriptProcess, 'error', function (error, stdout, stderr) {
                     that.lastError = error;
@@ -105,11 +105,11 @@ $oop.postpone($cliTools, 'CliApplication', function () {
              * Runs the application multiple times with different argument variations in a serial fashion.
              * @param {CliArguments[]} cliArgumentVariations
              * @param {object} [processOptions]
-             * @returns {Q.promise}
+             * @returns {$utils.Promise}
              */
             runCliVariants: function (cliArgumentVariations, processOptions) {
                 var that = this,
-                    deferred = Q.defer(),
+                    deferred = $utils.Deferred.create(),
                     i = 0;
 
                 (function next() {

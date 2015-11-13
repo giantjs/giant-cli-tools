@@ -40,7 +40,7 @@ $oop.postpone($cliTools, 'NodeScript', function () {
             /**
              * @param {$cliTools.CliArguments} cliArguments
              * @param {object} [processOptions]
-             * @returns {Q.promise}
+             * @returns {$utils.Promise}
              */
             runCli: function (cliArguments, processOptions) {
                 return base.runCli.call(
